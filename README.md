@@ -9,7 +9,7 @@ Full Name, Employee ID, Job Title, Department, Hire Date, Employment Status, Con
 2. User Roles and Permissions:
 - HR Personnel: Can perform CRUD (Create, Read, Update, Delete) operations on all employee data.
 - Managers: Can view and update specific details for employees within their department & Update Employee Data (Limited)
-- Managers can edit specific attributes of employees within their department:
+- Managers can edit specific attributes of employees within their department
 - Administrators: Full system access, including configuration settings and managing user permissions
 
 3. Audit Trail: Log all changes made to employee records, including who made the change and when.
