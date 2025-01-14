@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,6 +60,6 @@ public class Employee {
     private String address;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER, orphanRemoval = true)
-    @Column(nullable = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
     private User user;
 }
