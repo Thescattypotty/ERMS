@@ -1,5 +1,6 @@
 package org.employee.rms.Security.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.employee.rms.Entity.Role;
@@ -18,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService{
     
-
     private final UserRepository userRepository;
 
     @Override
@@ -36,12 +36,13 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     }
 
     private List<SimpleGrantedAuthority> getAuthorities(Role role){
-        return List.of(
-            role.getPermissions()
-                .stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.name()))
-                .toArray(SimpleGrantedAuthority[]::new)
-            );
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        authorities.addAll(role.getPermissions()
+            .stream()
+            .map(permission -> new SimpleGrantedAuthority(permission.name()))
+            .toList());
+        return authorities;
     }
     
 }
