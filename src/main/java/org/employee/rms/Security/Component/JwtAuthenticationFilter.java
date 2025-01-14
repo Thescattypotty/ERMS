@@ -3,6 +3,7 @@ package org.employee.rms.Security.Component;
 
 import java.io.IOException;
 
+import org.employee.rms.Security.Service.BlackListService;
 import org.employee.rms.Security.Service.JwtUtilService;
 import org.employee.rms.Security.Service.UserDetailsServiceImpl;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
     
     private final JwtUtilService jwtUtilService;
+    private final BlackListService blackListService;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Override
@@ -47,6 +49,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         }
         token = authorizationHeader.substring(7);
         log.info("JWT token found in request headers: {}", token);
+        if(blackListService.isTokenBlackListed(token)){
+            log.warn("Token is blacklisted. Unauthorized access");
+            filterChain.doFilter(request, response);
+            return;
+        }
         username = jwtUtilService.getEmailFromToken(token);
         log.info("Email extracted from token: {}", username);
 

@@ -2,6 +2,7 @@ package org.employee.rms.Security.Configuration;
 
 import org.employee.rms.Security.Component.AuthenticationEntryPointJwt;
 import org.employee.rms.Security.Component.JwtAuthenticationFilter;
+import org.employee.rms.Security.Component.JwtLogoutHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +28,7 @@ public class WebSecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationEntryPointJwt authenticationEntryPoint;
     private final AuthenticationProvider authenticationProvider;
+    private final JwtLogoutHandler jwtLogoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -49,7 +52,18 @@ public class WebSecurityConfiguration {
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(
                 jwtAuthenticationFilter, 
-                UsernamePasswordAuthenticationFilter.class)
+                UsernamePasswordAuthenticationFilter.class
+            )
+            .logout(logout -> {
+                log.info("Configuring logout");
+                logout.logoutUrl("/api/v1/auth/logout")
+                    .addLogoutHandler(jwtLogoutHandler)
+                    .logoutSuccessHandler((request, response, authentication) -> {
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.getWriter().write("Logout successful");
+                    });
+            })
+
             .build();
     }
     
