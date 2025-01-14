@@ -9,10 +9,15 @@ import org.springframework.stereotype.Service;
 public class DepartmentMapper {
     
     public Department toDepartment(DepartmentRequest departmentRequest){
-        return null;
+        return Department.builder()
+            .name(departmentRequest.name())    
+            .build();
     }
 
     public DepartmentResponse fromDepartment(Department department){
-        return null;
+        return new DepartmentResponse(
+            department.getId().toString(),
+            department.getName()
+        );
     }
 }
