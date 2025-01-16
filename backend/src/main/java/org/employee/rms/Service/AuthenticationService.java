@@ -31,7 +31,7 @@ public class AuthenticationService implements IAuthenticationService{
 
         UserDetailsImpl userDetails =(UserDetailsImpl) authentication.getPrincipal();
 
-        String jwt = jwtUtilService.generateToken(userDetails.getUsername(), userDetails.getPermissions());
+        String jwt = jwtUtilService.generateToken(userDetails.getUsername(), userDetails.getAuthorities());
 
         return new JwtResponse("Bearer " + jwt);
         

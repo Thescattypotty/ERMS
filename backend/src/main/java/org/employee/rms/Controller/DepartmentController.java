@@ -19,47 +19,50 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/v1/department")
 @RequiredArgsConstructor
+@Slf4j
 public class DepartmentController {
     private final DepartmentService departmentService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_ADMINISTRATOR')")
     public ResponseEntity<Void> createDepartment(@RequestBody @Valid DepartmentRequest departmentRequest) {
         departmentService.createDepartment(departmentRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_ADMINISTRATOR')")
     public ResponseEntity<Page<DepartmentResponse>> getAllDepartments(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size,
         @RequestParam(defaultValue = "id") String sortBy,
         @RequestParam(defaultValue = "asc") String direction
         ) {
+        log.info("Controller is Initialized");
         return new ResponseEntity<>(departmentService.getAllDepartments(page, size, sortBy, direction), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_ADMINISTRATOR')")
     public ResponseEntity<Void> updateDepartment(@PathVariable("id") String id, @RequestBody @Valid DepartmentRequest departmentRequest) {
         departmentService.updateDepartment(id, departmentRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_ADMINISTRATOR')")
     public ResponseEntity<Void> deleteDepartment(@PathVariable("id") String id) {
         departmentService.deleteDepartment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER', 'ROLE_ADMINISTRATOR')")
     public ResponseEntity<DepartmentResponse> getDepartment(@PathVariable("id") String id) {
         return new ResponseEntity<>(departmentService.getDepartment(id), HttpStatus.OK);
     }

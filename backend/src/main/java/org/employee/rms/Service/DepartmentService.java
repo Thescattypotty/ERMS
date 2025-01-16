@@ -17,9 +17,11 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DepartmentService implements IDepartmentService{
 
     private final DepartmentRepository departmentRepository;
@@ -59,7 +61,9 @@ public class DepartmentService implements IDepartmentService{
     }
     @Override
     public Page<DepartmentResponse> getAllDepartments(int page, int size, String sortBy, String direction) {
+        log.info("Starting function departement");
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(direction), sortBy));
+        log.info("Pageable is initialized");
         return departmentRepository.findAll(pageable)
             .map(departmentMapper::fromDepartment);
     }

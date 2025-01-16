@@ -26,4 +26,9 @@ public class GlobalExceptionHandler {
     public String handleException(PasswordIncorrectException e){
         return e.getMessage();
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public String handleException(Exception e){
+        return e.getMessage();
+    }
 }

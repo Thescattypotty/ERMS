@@ -1,11 +1,13 @@
 package org.employee.rms.Security.Service;
 
 import java.util.Set;
+import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
 import org.employee.rms.Enum.EPermission;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -21,14 +23,13 @@ public class JwtUtilService {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    public String generateToken(String email , Set<EPermission> permissions){
+    public String generateToken(String email , Collection<? extends GrantedAuthority> permissions){
         Algorithm algorithm = Algorithm.HMAC256(secret);
         return JWT.create()
             .withSubject(email)
             .withIssuedAt(new Date())
             .withExpiresAt(new Date(System.currentTimeMillis() + expiration))
-            .withClaim("permissions", permissions.stream()
-                .map(Enum::name).collect(Collectors.toList()))
+            .withClaim("permissions", permissions.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
             .sign(algorithm);
     }
 

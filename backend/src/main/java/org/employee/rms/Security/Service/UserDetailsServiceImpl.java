@@ -14,8 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService{
     
@@ -42,6 +44,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             .stream()
             .map(permission -> new SimpleGrantedAuthority(permission.name()))
             .toList());
+        log.info("Authorities: {}", authorities);
         return authorities;
     }
     
