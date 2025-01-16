@@ -33,7 +33,7 @@ public class LoginController extends JPanel implements SwitchablePanel{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridx = 0; gbc.gridy = 0;
-        JLabel emailLabel = new JLabel("Email:");
+        JLabel emailLabel = new JLabel("Email : ");
         add(emailLabel, gbc);
 
         gbc.gridx = 1;
@@ -41,7 +41,7 @@ public class LoginController extends JPanel implements SwitchablePanel{
         add(emailField, gbc);
 
         gbc.gridx = 0; gbc.gridy = 1;
-        JLabel passwordLabel = new JLabel("Mot de passe:");
+        JLabel passwordLabel = new JLabel("Password : ");
         add(passwordLabel, gbc);
 
         gbc.gridx = 1;
@@ -53,7 +53,7 @@ public class LoginController extends JPanel implements SwitchablePanel{
         add(messageLabel, gbc);
 
         gbc.gridy = 3; gbc.gridwidth = 1;
-        JButton loginButton = new JButton("Se connecter");
+        JButton loginButton = new JButton("Connect");
         loginButton.addActionListener(e -> {
             try {
                 authenticationService.authenticate(
