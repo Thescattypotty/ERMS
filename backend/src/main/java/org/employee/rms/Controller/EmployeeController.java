@@ -19,15 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/employee")
 @RequiredArgsConstructor
+@Tag(name = "Employee", description = "Employee API")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
+    @Operation(summary = "Create Employee", description = "Create a new employee", tags = { "Employee" })
+    @ApiResponse(responseCode = "201", description = "Employee created")
+    @Schema(name = "EmployeeRequest", implementation = EmployeeRequest.class)
     @PostMapping
     @PreAuthorize("hasAuthority('CREATE')")
     public ResponseEntity<Void> createEmployee(@RequestBody @Valid EmployeeRequest employeeRequest){
@@ -35,6 +43,9 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Update Employee", description = "Update an existing employee", tags = { "Employee" })
+    @ApiResponse(responseCode = "200", description = "Employee updated")
+    @Schema(name = "EmployeeRequest", implementation = EmployeeRequest.class)
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<Void> updateEmployee(@PathVariable("id") String id,@RequestBody @Valid EmployeeRequest employeeRequest){
@@ -42,6 +53,8 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Operation(summary = "Delete Employee", description = "Delete an existing employee", tags = { "Employee" })
+    @ApiResponse(responseCode = "204", description = "Employee deleted")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<Void> deleteEmployee(@PathVariable("id") String id){
@@ -49,12 +62,21 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Operation(summary = "Get Employee", description = "Get an existing employee", tags = { "Employee" })
+    @ApiResponse(responseCode = "200", description = "Employee retrieved")
+    @ApiResponse(responseCode = "404", description = "Employee not found")
+    @Schema(name = "EmployeeResponse", implementation = EmployeeResponse.class)
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable("id") String id){
         return new ResponseEntity<>(employeeService.getEmployee(id),HttpStatus.OK);
     }
 
+    @Operation(summary = "Get All Employees", description = "Get all employees", tags = { "Employee" })
+    @ApiResponse(responseCode = "200", description = "Employees retrieved")
+    @ApiResponse(responseCode = "401", description = "Unauthorized")
+    @ApiResponse(responseCode = "403", description = "Forbidden")
+    @ApiResponse(responseCode = "500", description = "Internal Server Error")
     @GetMapping
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<Page<EmployeeResponse>> getEmployees(
