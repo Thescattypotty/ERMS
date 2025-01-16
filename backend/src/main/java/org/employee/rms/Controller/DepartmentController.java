@@ -44,7 +44,9 @@ public class DepartmentController {
         @RequestParam(defaultValue = "asc") String direction
         ) {
         log.info("Controller is Initialized");
-        return new ResponseEntity<>(departmentService.getAllDepartments(page, size, sortBy, direction), HttpStatus.OK);
+        Page<DepartmentResponse> departmentResponses = departmentService.getAllDepartments(page, size, sortBy, direction);
+        log.info("Controller is returning with content of departmets : {}", departmentResponses);
+        return new ResponseEntity<>(departmentResponses, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
