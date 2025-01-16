@@ -31,7 +31,7 @@ public class EmployeeMapper {
             employee.getPhoneNumber(),
             employee.getEmail(),
             employee.getAddress(),
-            employee.getUser()!= null ? employee.getUser().getId().toString() : null
+            employee.getUser() != null ? employee.getUser().getId().toString() : ""
         );
     }
 }
