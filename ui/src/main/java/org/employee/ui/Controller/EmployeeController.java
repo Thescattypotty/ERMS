@@ -180,8 +180,6 @@ public class EmployeeController extends JPanel implements SwitchablePanel{
         JTextField emailField = new JTextField(15);
         JLabel addressLabel = new JLabel("Address : ");
         JTextField addressField = new JTextField(15);
-        JLabel userIdLabel = new JLabel("User Id : ");
-        JTextField userIdField = new JTextField(15);
 
         gbc.gridx = 0; gbc.gridy = 0;
         createDialog.add(nameLabel, gbc);
@@ -223,10 +221,6 @@ public class EmployeeController extends JPanel implements SwitchablePanel{
         gbc.gridx = 1;
         createDialog.add(addressField, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 8;
-        createDialog.add(userIdLabel, gbc);
-        gbc.gridx = 1;
-        createDialog.add(userIdField, gbc);
 
         JButton saveButton = new JButton("Enregistrer");
 
@@ -240,7 +234,7 @@ public class EmployeeController extends JPanel implements SwitchablePanel{
             employeeService.createEmployee(
                 new EmployeeRequest(nameField.getText(), jobTitleField.getText(), selectedDepartmentId,
                             LocalDate.parse(hireDateField.getText()), employmentStatusField.getText(), phoneNumberField.getText(),
-                            emailField.getText(), addressField.getText(), userIdField.getText())
+                            emailField.getText(), addressField.getText(), "")
             );
             createDialog.dispose();
             loadEmployees();
@@ -297,8 +291,6 @@ public class EmployeeController extends JPanel implements SwitchablePanel{
         JTextField emailField = new JTextField(selectedEmployee.email(), 15);
         JLabel addressLabel = new JLabel("Address : ");
         JTextField addressField = new JTextField(selectedEmployee.address(), 15);
-        JLabel userIdLabel = new JLabel("User Id : ");
-        JTextField userIdField = new JTextField(selectedEmployee.userId(), 15);
 
         gbc.gridx = 0; gbc.gridy = 0;
         updateDialog.add(nameLabel, gbc);
@@ -340,10 +332,6 @@ public class EmployeeController extends JPanel implements SwitchablePanel{
         gbc.gridx = 1;
         updateDialog.add(addressField, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 8;
-        updateDialog.add(userIdLabel, gbc);
-        gbc.gridx = 1;
-        updateDialog.add(userIdField, gbc);
 
         JButton saveButton = new JButton("Enregistrer les modifications");
 
@@ -357,7 +345,7 @@ public class EmployeeController extends JPanel implements SwitchablePanel{
                 employeeService.updateEmployee(employeeId,
                     new EmployeeRequest(nameField.getText(), jobTitleField.getText(), selectedDepartmentId,
                             LocalDate.parse(hireDateField.getText()), employmentStatusField.getText(), phoneNumberField.getText(),
-                            emailField.getText(), addressField.getText(), userIdField.getText())
+                            emailField.getText(), addressField.getText(), "")
                 );
                 updateDialog.dispose();
                 loadEmployees();
