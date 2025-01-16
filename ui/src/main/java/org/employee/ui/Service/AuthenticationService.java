@@ -39,5 +39,19 @@ public class AuthenticationService implements IAuthenticationService{
             JWT_TOKEN = body.accessToken().substring(7);
         }
     }
+    @Override
+    public void logout(){
+        ResponseEntity<String> response = restClient
+            .post()
+            .uri("/auth/logout")
+            .header("authorization", "Bearer " + JWT_TOKEN)
+            .accept(MediaType.APPLICATION_JSON)
+            .retrieve()
+            .toEntity(String.class);
+        if(response.getStatusCode().is2xxSuccessful()){
+            JWT_TOKEN = null;
+        }
+        JWT_TOKEN = null;
+    }
     
 }

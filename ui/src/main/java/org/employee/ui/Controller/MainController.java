@@ -28,12 +28,13 @@ public class MainController extends JFrame{
 
     private final LoginController loginController;
     private final DepartmentController departmentController;
+    private final EmployeeController employeeController;
 
     @PostConstruct
     public void init(){
         setTitle("Main Page");
         setLayout(new GridBagLayout());
-        setSize(700, 500);
+        setSize(1200, 500);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(
             (dimension.width - this.getWidth())/2, 
@@ -47,6 +48,7 @@ public class MainController extends JFrame{
 
         registerPanel(loginController);
         registerPanel(departmentController);
+        registerPanel(employeeController);
     }
 
     private void registerPanel(SwitchablePanel panel){
@@ -56,6 +58,16 @@ public class MainController extends JFrame{
 
     public void switchToPanel(String panelName){
         cardLayout.show(getContentPane(), panelName);
+        switch(panelName){
+            case "department":
+                departmentController.loadDepartments();
+                break;
+            case "employee":
+                employeeController.loadEmployees();
+                break;
+            default:
+                break;
+        }
     }
 }
 

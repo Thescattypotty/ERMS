@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DepartmentController extends JPanel implements SwitchablePanel{
 
     private final NavigationHelper navigationHelper;
+    private final AuthenticationService authenticationService;
     private final DepartementService departementService;
 
     private JTable departmentTable;
@@ -32,10 +33,32 @@ public class DepartmentController extends JPanel implements SwitchablePanel{
     private String sortBy = "name";
     private String direction ="asc";
 
+    private JButton prevButton, nextButton;
+    private JLabel pageLabel;
+
 
     @PostConstruct
     private void initComponents() {
         setLayout(new BorderLayout());
+
+        JPanel sideMenu = new JPanel();
+        sideMenu.setLayout(new BoxLayout(sideMenu, BoxLayout.Y_AXIS));
+        JButton usersButton = new JButton("Users");
+        JButton departmentButton = new JButton("Department");
+        JButton employeeButton = new JButton("Employee");
+        JButton logoutButton = new JButton("Logout");
+
+        usersButton.addActionListener(e -> navigationHelper.navigateTo("users"));
+        departmentButton.addActionListener(e -> navigationHelper.navigateTo("department"));
+        employeeButton.addActionListener(e -> navigationHelper.navigateTo("employee"));
+        logoutButton.addActionListener(e -> logout());
+
+        sideMenu.add(usersButton);
+        sideMenu.add(departmentButton);
+        sideMenu.add(employeeButton);
+        sideMenu.add(logoutButton);
+
+        add(sideMenu, BorderLayout.WEST);
 
         // Table Model
         tableModel = new DefaultTableModel(new Object[]{"ID", "Name"}, 0);
@@ -49,6 +72,17 @@ public class DepartmentController extends JPanel implements SwitchablePanel{
         JButton updateButton = new JButton("Mettre à Jour Département");
         JButton deleteButton = new JButton("Supprimer Département");
         JButton refreshButton = new JButton("Rafraîchir");
+
+        // Ajout des composants de pagination
+        prevButton = new JButton("Précédent");
+        nextButton = new JButton("Suivant");
+        pageLabel = new JLabel("Page: 1");
+
+        buttonPanel.add(prevButton);
+        buttonPanel.add(pageLabel);
+        buttonPanel.add(nextButton);
+
+
         buttonPanel.add(createButton);
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
@@ -61,18 +95,32 @@ public class DepartmentController extends JPanel implements SwitchablePanel{
         deleteButton.addActionListener(e -> deleteSelectedDepartment());
         refreshButton.addActionListener(e -> loadDepartments());
 
-        // Charger les départements au démarrage
-        if(AuthenticationService.JWT_TOKEN != null && !AuthenticationService.JWT_TOKEN.isEmpty()){
-            loadDepartments();
-        }
-    }
+        // Actions des boutons de pagination
+        prevButton.addActionListener(e -> {
+            if (currentPage > 0) {
+                currentPage--;
+                loadDepartments();
+            }
+        });
 
-    private void loadDepartments() {
+        nextButton.addActionListener(e -> {
+            currentPage++;
+            loadDepartments();
+        });
+    }
+    
+    public void loadDepartments() {
         List<DepartmentResponse> departments = departementService.getDepartments(currentPage, pageSize, sortBy, direction);
         tableModel.setRowCount(0);
         for (DepartmentResponse dept : departments) {
             tableModel.addRow(new Object[]{dept.id(), dept.name()});
         }
+        pageLabel.setText("Page: " + (currentPage + 1));
+        prevButton.setEnabled(currentPage > 0);
+
+        List<DepartmentResponse> nextDepartments = departementService.getDepartments(currentPage + 1, pageSize, sortBy,
+                direction);
+        nextButton.setEnabled(!nextDepartments.isEmpty());
     }
 
     private void openCreateModal() {
@@ -171,6 +219,11 @@ public class DepartmentController extends JPanel implements SwitchablePanel{
             departementService.deleteDepartment(deptId);
             loadDepartments();
         }
+    }
+
+    private void logout(){
+        authenticationService.logout();
+        navigationHelper.navigateTo("login");
     }
 
 

@@ -5,4 +5,5 @@ import org.employee.ui.Payload.Request.LoginRequest;
 
 public interface IAuthenticationService {
     void authenticate(LoginRequest loginRequest) throws AuthenticationException;
+    void logout();
 }
