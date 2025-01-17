@@ -1,0 +1,939 @@
+{
+	"info": {
+		"_postman_id": "be98d205-e0ef-4a2b-9035-23fab6c453be",
+		"name": "ERMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34174884"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contain Authentication"
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyaEBnbWFpbC5jb20iLCJpYXQiOjE3MzY4NzkwMjMsImV4cCI6MTczNjk2NTQyMywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIkRFTEVURSIsIlVQREFURSJdfQ.X6w2iFnRXddDB8PfSC6z0kJXQTui_Srw-ZxMcAWT4u0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/test/protected/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"test",
+								"protected",
+								"update"
+							]
+						},
+						"description": "Every Logged in User that have UPDATE authority can access to this route"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyaEBnbWFpbC5jb20iLCJpYXQiOjE3MzY4NzkwMjMsImV4cCI6MTczNjk2NTQyMywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIkRFTEVURSIsIlVQREFURSJdfQ.X6w2iFnRXddDB8PfSC6z0kJXQTui_Srw-ZxMcAWT4u0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/test/protected/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"test",
+								"protected",
+								"delete"
+							]
+						},
+						"description": "Every Logged in User that have DELETE authority can access to this route"
+					},
+					"response": []
+				},
+				{
+					"name": "Unprotected",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyaEBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODA2MjcsImV4cCI6MTczNjk2NzAyNywicGVybWlzc2lvbnMiOlsiREVMRVRFIiwiQ1JFQVRFIiwiVVBEQVRFIiwiUkVBRCJdfQ.KA1_5HRQ7-GvXFajWzOhbLDqS1Ry9XIssxNelhEBr3c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/test/unprotected",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"test",
+								"unprotected"
+							]
+						},
+						"description": "Every one can access to this route"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyaEBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODA2MjcsImV4cCI6MTczNjk2NzAyNywicGVybWlzc2lvbnMiOlsiREVMRVRFIiwiQ1JFQVRFIiwiVVBEQVRFIiwiUkVBRCJdfQ.KA1_5HRQ7-GvXFajWzOhbLDqS1Ry9XIssxNelhEBr3c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/test/protected/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"test",
+								"protected",
+								"create"
+							]
+						},
+						"description": "Every Logged in User that have CREATE authority can access to this route"
+					},
+					"response": []
+				},
+				{
+					"name": "Protected",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyaEBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODA2MjcsImV4cCI6MTczNjk2NzAyNywicGVybWlzc2lvbnMiOlsiREVMRVRFIiwiQ1JFQVRFIiwiVVBEQVRFIiwiUkVBRCJdfQ.KA1_5HRQ7-GvXFajWzOhbLDqS1Ry9XIssxNelhEBr3c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JSESSIONID=2700456537A8F0795C54AF3EF9357F7F",
+								"name": "cookie",
+								"type": "text"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"name": "cache-control",
+								"type": "text"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "<calculated when request is sent>",
+								"name": "postman-token",
+								"type": "text"
+							},
+							{
+								"key": "Host",
+								"value": "<calculated when request is sent>",
+								"name": "host",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.39.1",
+								"name": "user-agent",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"name": "accept",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"name": "accept-encoding",
+								"type": "text"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"name": "connection",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/test/protected",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"test",
+								"protected"
+							]
+						},
+						"description": "Every Logged in User can access to this route"
+					},
+					"response": []
+				},
+				{
+					"name": "Read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJyaEBnbWFpbC5jb20iLCJpYXQiOjE3MzY4NzkwMjMsImV4cCI6MTczNjk2NTQyMywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIkRFTEVURSIsIlVQREFURSJdfQ.X6w2iFnRXddDB8PfSC6z0kJXQTui_Srw-ZxMcAWT4u0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "JSESSIONID=2700456537A8F0795C54AF3EF9357F7F",
+								"name": "cookie",
+								"type": "text"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"name": "cache-control",
+								"type": "text"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "<calculated when request is sent>",
+								"name": "postman-token",
+								"type": "text"
+							},
+							{
+								"key": "Host",
+								"value": "<calculated when request is sent>",
+								"name": "host",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.39.1",
+								"name": "user-agent",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"name": "accept",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"name": "accept-encoding",
+								"type": "text"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"name": "connection",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/test/protected/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"test",
+								"protected",
+								"read"
+							]
+						},
+						"description": "Every Logged in User that have READ authority can access to this route"
+					},
+					"response": []
+				}
+			],
+			"description": "Testing Jwt Authorization"
+		},
+		{
+			"name": "User Requests",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY5NzQyOTUsImV4cCI6MTczNzA2MDY5NSwicGVybWlzc2lvbnMiOlsiQ1JFQVRFIiwiVVBEQVRFIiwiREVMRVRFIiwiUkVBRCJdfQ.uhsO3v3-ydilmBmD9YvCo03eP4l6O3asv1fAt0aWeqk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"password\",\n    \"roleId\": \"role_id_exemple\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/348cdebe-1e53-43b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"348cdebe-1e53-43b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/348cdebe-1e53-43b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"348cdebe-1e53-43b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"password\",\n    \"newPassword\": \"newPassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/348cdebe-1e53-43b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"348cdebe-1e53-43b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contain different Cruds on User"
+		},
+		{
+			"name": "Department Requests",
+			"item": [
+				{
+					"name": "Get All Departments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzcwNTMwMTAsImV4cCI6MTczNzEzOTQxMCwicGVybWlzc2lvbnMiOlsiUk9MRV9BRE1JTklTVFJBVE9SIiwiQ1JFQVRFIiwiVVBEQVRFIiwiUkVBRCIsIkRFTEVURSJdfQ.ZIAKsEjXco3lehnzwmiaxTDo_a4Acn_UJ79HPEceeSk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/department?page=0&size=10&sortBy=id&direction=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"department"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Department",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"HR\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/department",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Department By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/department/348cdebe-1e53-43b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"department",
+								"348cdebe-1e53-43b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Department",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/department/348cdebe-1e53-43b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"department",
+								"348cdebe-1e53-43b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Department",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"new Dep Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/department/348cdebe-1e53-43b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"department",
+								"348cdebe-1e53-43b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contain Different Cruds on Department"
+		},
+		{
+			"name": "Employee Requests",
+			"item": [
+				{
+					"name": "Get All Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/employee?page=0&size=10&sortBy=id&direction=asc&departmentId=&hireDate=&employmentStatus=status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"employee"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "direction",
+									"value": "asc"
+								},
+								{
+									"key": "departmentId",
+									"value": ""
+								},
+								{
+									"key": "hireDate",
+									"value": ""
+								},
+								{
+									"key": "employmentStatus",
+									"value": "status"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"yahya bennis\",\n    \"jobTitle\": \"Software Ingeneer\",\n    \"departmentId\": \"\",\n    \"hireDate\": \"2025-12-08\",\n    \"employmentStatus\": \"active\",\n    \"phoneNumber\": \"+212622645603\",\n    \"email\": \"bennis-yahya@outlook.com\",\n    \"address\": \"i have no adress\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/employee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/employee/348dqebe-1e21-b3b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"348dqebe-1e21-b3b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/employee/348dqebe-1e21-b3b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"348dqebe-1e21-b3b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzY4ODQ2MzcsImV4cCI6MTczNjk3MTAzNywicGVybWlzc2lvbnMiOlsiUkVBRCIsIkNSRUFURSIsIlVQREFURSIsIkRFTEVURSJdfQ.fTEOLxdqlMYlr_vq3ukefEZ5DpiVi6GhB_iTr3amocg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"yahya bennis\",\n    \"jobTitle\": \"Software Ingeneer\",\n    \"departmentId\": \"\",\n    \"hireDate\": \"2025-12-08\",\n    \"employmentStatus\": \"active\",\n    \"phoneNumber\": \"+212622645603\",\n    \"email\": \"bennis-yahya@outlook.com\",\n    \"address\": \"i have no adress\",\n    \"userId\": \"348cdebe-1e53-43b1-a018-3ade204bf209\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/employee/348dqebe-1e21-b3b1-a018-3ade204bf209",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"348dqebe-1e21-b3b1-a018-3ade204bf209"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contain different Cruds on employee"
+		}
+	]
+}
