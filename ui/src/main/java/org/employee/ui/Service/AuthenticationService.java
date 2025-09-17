@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationService implements IAuthenticationService{
     
     public static String JWT_TOKEN;
@@ -41,6 +43,7 @@ public class AuthenticationService implements IAuthenticationService{
     }
     @Override
     public void logout(){
+        log.info("Attempting to logout user");
         ResponseEntity<String> response = restClient
             .post()
             .uri("/auth/logout")
@@ -49,8 +52,11 @@ public class AuthenticationService implements IAuthenticationService{
             .retrieve()
             .toEntity(String.class);
         if(response.getStatusCode().is2xxSuccessful()){
-            JWT_TOKEN = null;
+            log.info("Logout successful");
+        } else {
+            log.warn("Logout request failed with status: {}", response.getStatusCode());
         }
+        // Clear JWT token regardless of response status for security
         JWT_TOKEN = null;
     }
     
